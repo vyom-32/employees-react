@@ -3,7 +3,7 @@ import { api } from "../service/axios";
 
 const FileInput = (params: {
   filePath?: string;
-  setFileUrl: React.Dispatch<React.SetStateAction<string>>;
+  setFileUrl: (url: string) => void;
 }) => {
   const { filePath = "uploads", setFileUrl } = params;
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,6 +27,7 @@ const FileInput = (params: {
             "Content-Type": "multipart/form-data",
           },
         });
+        console.log("response.data.filePath...", response.data.filePath);
         setFileUrl(response.data.filePath); // Assuming server responds with { filePath: 'url/path' }
       } catch (error) {
         console.error("Error uploading file:", error);
