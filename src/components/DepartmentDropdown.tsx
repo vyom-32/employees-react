@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { api } from "../service/axios";
 
-const DepartmentDropdown = ({ register }) => {
+const DepartmentDropdown = ({ value, onChange }) => {
   const fetchDepartments = async () => {
     const response = await api.get("/department-list");
     return response.data;
@@ -18,7 +18,7 @@ const DepartmentDropdown = ({ register }) => {
   }
 
   return (
-    <select {...register("department_id")} required>
+    <select value={value} onChange={onChange} required>
       <option value="">Select Department</option>
       {departments?.map((dept) => (
         <option key={dept.id} value={dept.id}>

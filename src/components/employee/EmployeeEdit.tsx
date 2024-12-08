@@ -18,29 +18,27 @@ const EmployeeEdit = () => {
     return response.data;
   };
 
-  const { data: employeeDetails, error: employeeDetailsError } = useQuery(
-    ["employeeDetails", id],
-    getEmployeeData
-  );
-
-  const { register, handleSubmit, reset, control } = useForm({
-    employeeDetails,
-  });
+  const {
+    data: employeeDetails,
+    error: employeeDetailsError,
+    isLoading,
+  } = useQuery(["employeeDetails", id], getEmployeeData);
 
   const onSubmitForm = (data) => {
     const formData = { ...data };
-    if (photo) formData.photo = photo;
 
     api
       .post("/update-employee", formData)
       .then(() => {
         alert("Employee updated successfully");
-        navigate("/");
+        navigate("/employee-list");
       })
       .catch((e) => alert(e));
   };
 
-  return (
+  return isLoading ? (
+    <div className="text-center">Loading...</div>
+  ) : (
     <EmployeeForm
       initialValues={employeeDetails}
       onSubmitForm={onSubmitForm}

@@ -22,7 +22,7 @@ const EmployeeAdd = () => {
       .post("/create-employee", formData)
       .then(() => {
         alert("Employee created successfully");
-        navigate("/");
+        navigate("/employee-list");
       })
       .catch((e) => alert(e));
   };
@@ -31,7 +31,7 @@ const EmployeeAdd = () => {
     <EmployeeForm
       initialValues={defaultValues}
       onSubmitForm={onSubmitForm}
-      isEditForm={true}
+      isEditForm={false}
     />
   );
 };
